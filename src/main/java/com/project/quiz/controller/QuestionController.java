@@ -64,7 +64,17 @@ public class QuestionController {
         }
     }
 
+    /*
+    For larger updates
     @PutMapping("/update/{id}")
+    public ResponseEntity<Question> updateQuestionById(@PathVariable Long id, @RequestBody Question question) {
+        return questionService.updateQuestionById(id, question)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+    }*/
+
+    // For smaller updates
+    @PatchMapping("/update/{id}")
     public ResponseEntity<Question> updateQuestionById(@PathVariable Long id, @RequestBody Question question) {
         return questionService.updateQuestionById(id, question)
                 .map(ResponseEntity::ok)
