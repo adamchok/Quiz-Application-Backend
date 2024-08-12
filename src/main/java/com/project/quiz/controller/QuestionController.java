@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/quiz")
+@RequestMapping("/quiz/questions")
 @CrossOrigin("*")
 public class QuestionController {
 
@@ -33,7 +33,7 @@ public class QuestionController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Question> createQuestion(@RequestBody Question question) {
         try {
             Question savedQuestion = questionService.createQuestion(question);
@@ -53,7 +53,7 @@ public class QuestionController {
         return ResponseEntity.ok(questions);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteQuestionById(@PathVariable Long id) {
         boolean isSuccess = questionService.deleteQuestionById(id);
 
@@ -64,17 +64,16 @@ public class QuestionController {
         }
     }
 
-    /*
-    For larger updates
+    /* For larger updates
     @PutMapping("/update/{id}")
     public ResponseEntity<Question> updateQuestionById(@PathVariable Long id, @RequestBody Question question) {
         return questionService.updateQuestionById(id, question)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
-    }*/
+    } */
 
     // For smaller updates
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Question> updateQuestionById(@PathVariable Long id, @RequestBody Question question) {
         return questionService.updateQuestionById(id, question)
                 .map(ResponseEntity::ok)
