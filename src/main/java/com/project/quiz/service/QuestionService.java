@@ -12,8 +12,12 @@ import java.util.Optional;
 
 @Service
 public class QuestionService {
+    private final QuestionRepository questionRepository;
+
     @Autowired
-    QuestionRepository questionRepository;
+    public QuestionService(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+    }
 
     public List<Question> getAllQuestions() {
         Sort sort = Sort.by(Sort.Order.asc("id"));
@@ -29,13 +33,11 @@ public class QuestionService {
     }
 
     public List<Question> getQuestionsByDifficulty(String difficultyLevel) {
-        // Convert the input difficultyLevel to lower case for case-insensitive comparison
         String lowerCaseDifficultyLevel = difficultyLevel.toLowerCase();
 
-        // Retrieve all questions and filter based on the difficultyLevel
         List<Question> allQuestions = getAllQuestions();
         return allQuestions.stream()
-                .filter(ques -> ques.getDifficulty_level().equalsIgnoreCase(difficultyLevel))
+                .filter(ques -> ques.getDifficulty_level().equalsIgnoreCase(lowerCaseDifficultyLevel))
                 .toList();
     }
 
