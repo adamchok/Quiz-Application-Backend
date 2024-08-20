@@ -1,15 +1,11 @@
 package com.project.quiz.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "questions")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question {
